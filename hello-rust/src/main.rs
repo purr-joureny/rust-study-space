@@ -5,7 +5,7 @@ use std::io::{stdout, BufWriter};
 fn do_something() {}
 
 fn main() {
-    let stdout = stdout();
+    let stdout: std::io::Stdout = stdout();
     let message = String::from("hello fellow Rustaceans");
     let width = message.chars().count();
 
