@@ -1,6 +1,7 @@
 // 从标准库中引用 输入/输出 (I/O) 功能
 // std 标准库
 use rand::Rng;
+use std::cmp::Ordering;
 use std::io;
 
 fn main() {
@@ -29,6 +30,7 @@ fn main() {
 
     println!("You guessed {}", guess);
     random();
+    diff_num();
 }
 
 fn random() {
@@ -50,4 +52,21 @@ fn random() {
         .expect("Failed to read line");
     // 输出
     println!("You guessed: {guess}");
+}
+
+fn diff_num() {
+    // snip
+    let mut guess = String::new();
+    io::stdin()
+        .read_line(&mut guess)
+        .expect("Failed to read line");
+    let guess: u32 = guess.trim().parse().expect("Please type a number!");
+    let secret_number: u32 = rand::thread_rng().gen_range(1..=100);
+    println!("Your guessed: {guess}");
+
+    match guess.cmp(&secret_number) {
+        Ordering::Less => println!("Too small"),
+        Ordering::Greater => println!("Too Big"),
+        Ordering::Equal => println!("You win"),
+    }
 }
